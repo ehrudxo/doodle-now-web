@@ -5,10 +5,16 @@ import firebase from 'firebase';
 import config from './config';
 
 firebase.initializeApp(config);
-
+//https://doodle-now.firebaseio.com/doodles/.json
 class App extends Component {
+  getInitialState(){
+    return {
+      doodles: [],
+      doodle: {}
+    };
+  }
   componentWillMount() {
-    this.firebaseRef = firebase.database().ref("items");
+    this.firebaseRef = firebase.database().ref("doodles");
     this.firebaseRef.on("child_added", function(dataSnapshot) {
       this.items.push(dataSnapshot.val());
       this.setState({
