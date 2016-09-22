@@ -3,24 +3,35 @@ import logo from './logo.svg';
 import './App.css';
 import firebase from 'firebase';
 import config from './config';
+import Embedly from 'react-embedly';
 
 firebase.initializeApp(config);
 //https://doodle-now.firebaseio.com/doodles/.json
 class App extends Component {
-  getInitialState(){
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       doodles: [],
-      doodle: {}
     };
   }
   componentWillMount() {
+    console.log(firebase.database());
     this.firebaseRef = firebase.database().ref("doodles");
-    this.firebaseRef.on("child_added", function(dataSnapshot) {
-      this.items.push(dataSnapshot.val());
-      this.setState({
-        items: this.items
+    var _this =this;
+    this.firebaseRef.limitToLast(25).on('value', function(dataSnapshot) {
+      var items = [];
+      console.log(dataSnapshot);
+      dataSnapshot.forEach(function(childSnapshot) {
+        console.log(childSnapshot.val());
+        var item = childSnapshot.val();
+        item['.key'] = childSnapshot.key;
+        items.push(item);
       });
-    }.bind(this));
+      console.log(items);
+      _this.setState({
+        doodles: items
+      });
+    });
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -44,15 +55,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Doodle Now</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <DoodleList items={ this.state.items } removeItem={ this.removeItem } />
+        <DoodleList doodles={ this.state.doodles }/>
         <form onSubmit={ this.handleSubmit }>
           title : <input name="title" onChange={ this.onChange } value={ this.state.title } /><br/>
           content : <input name="content" onChange={ this.onChange } value={ this.state.content } /><br/>
           url : <input name="url" onChange={ this.onChange } value={ this.state.url } /><br/>
-          <button>{ 'Add #' + (this.state.items.length + 1) }</button>
+          <button>{ 'Add #' + (this.state.doodles.length + 1) }</button>
         </form>
       </div>
     );
@@ -64,15 +72,13 @@ var DoodleList = React.createClass({
     var createItem = function(item, index) {
       return (
         <li key={ index }>
-          { item.text }
-          <span onClick={ _this.props.removeItem.bind(null, item['.key']) }
-                style={{ color: 'red', marginLeft: '10px', cursor: 'pointer' }}>
-            X
-          </span>
+          { item.title }|
+          { item.content }
+          <Embedly url={ item.url } apiKey={config.embedlyKey} />
         </li>
       );
     };
-    return <ul>{ this.props.items.map(createItem) }</ul>;
+    return <ul>{ this.props.doodles.map(createItem) }</ul>;
   }
 });
 
