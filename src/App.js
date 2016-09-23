@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './img/main_logo.png';
 import './App.css';
 import firebase from 'firebase';
 import config from './config';
@@ -52,16 +52,16 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <span className="logo"><img src={logo} height="150px" alt="logo" /></span>
           <h2>Doodle Now</h2>
         </div>
-        <DoodleList doodles={ this.state.doodles }/>
         <form onSubmit={ this.handleSubmit }>
           title : <input name="title" onChange={ this.onChange } value={ this.state.title } /><br/>
           content : <input name="content" onChange={ this.onChange } value={ this.state.content } /><br/>
           url : <input name="url" onChange={ this.onChange } value={ this.state.url } /><br/>
           <button>{ 'Add #' + (this.state.doodles.length + 1) }</button>
         </form>
+        <DoodleList doodles={ this.state.doodles }/>
       </div>
     );
   }
@@ -71,9 +71,9 @@ var DoodleList = React.createClass({
     var _this = this;
     var createItem = function(item, index) {
       return (
-        <li key={ index }>
-          { item.title }|
-          { item.content }
+        <li key={ index } className="itemList">
+          <h3>{ item.title }</h3>
+          <p>{ item.content }</p>
           <Embedly url={ item.url } apiKey={config.embedlyKey} />
         </li>
       );
