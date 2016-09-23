@@ -52,13 +52,23 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <span className="logo"><img src={logo} height="150px" alt="logo" /></span>
+          <div className="logo"><img src={logo} height="150px" alt="logo" /></div>
           <h2>Doodle Now</h2>
         </div>
+        <p/>
         <form onSubmit={ this.handleSubmit }>
-          title : <input name="title" onChange={ this.onChange } value={ this.state.title } /><br/>
-          content : <input name="content" onChange={ this.onChange } value={ this.state.content } /><br/>
-          url : <input name="url" onChange={ this.onChange } value={ this.state.url } /><br/>
+          <div className="row_edit">
+            <span className="row_title"><h3>title</h3></span>
+            <input className="row_input" name="title" onChange={ this.onChange } value={ this.state.title } />
+          </div>
+          <div className="row_edit">
+            <span className="row_title"><h3>url</h3></span>
+            <input className="row_input" name="url" onChange={ this.onChange } value={ this.state.url } />
+          </div>
+          <div className="row_edit">
+            <span className="row_title"><h3>content</h3></span>
+            <textarea className="row_input" name="content" onChange={ this.onChange } value={ this.state.content } />
+          </div>
           <button>{ 'Add #' + (this.state.doodles.length + 1) }</button>
         </form>
         <DoodleList doodles={ this.state.doodles }/>
