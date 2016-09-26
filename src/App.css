@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-h3{display:inline-block;margin:2px;}
+h3{display:inline;margin:2px;}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -58,4 +58,7 @@ textarea {
 }
 input {
   height:20px;
+}
+.elegant_grey{
+  color: #4f494b
 }

@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import config from './config';
 import moment from 'moment';
 import request from 'superagent';
+import trashCan from './img/trash-can.png'
 
 firebase.initializeApp(config);
 //https://doodle-now.firebaseio.com/doodles/.json
@@ -128,13 +129,11 @@ class DoodleList extends Component{
           <div>{this.getimage(item.createdAt)}
           <h3>{ item.title }({moment(item.createdAt).fromNow() })</h3>
           <span onClick={ this.props.removeItem.bind(null, item['.key']) }
-                  style={{ color: 'red', marginRight: '10px', cursor: 'pointer' }}>
-              X
+                  style={{ color: 'red', marginRight: '10px', cursor: 'pointer',float:'right' }}>
+              <img src={trashCan} width="15px"  alt="trash"/>
           </span></div>
-          <p>{ item.content }</p>
-          <p>{ item.url }</p>
-
-          <Embedly url={ item.url } apiKey={config.embedlyKey} />
+          <p className="elegant_grey">{ item.content }</p>
+          <Embedly url={ item.url } apiKey={config.embedlyKey}/>
         </li>
       );
     else return null;
