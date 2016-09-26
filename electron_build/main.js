@@ -1,7 +1,5 @@
 const electron = require('electron')
 const debug = require('debug')('my-application');
-const app_server = require('./app');
-
 
 // Module to control application life.
 const app = electron.app
@@ -11,17 +9,12 @@ const BrowserWindow = electron.BrowserWindow
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-let mPort = process.env.PORT || 3013;
-app_server.set('port', mPort);
-let mUrl = "http://localhost:"+mPort
-var server = app_server.listen(app_server.get('port'), function() {
-  console.log('Express server listening on port ' + server.address().port);
-});
-
+require('./app')
+let mUrl = "http://localhost:8989"
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 840, height: 800,title:"movie event"})
+  mainWindow = new BrowserWindow({width: 480, height: 640,title:"doodle now Desktop"})
 
   // and load the index.html of the app.
   mainWindow.loadURL(mUrl)
