@@ -132,7 +132,7 @@ class DoodleList extends Component{
                   style={{ color: 'red', marginRight: '10px', cursor: 'pointer',float:'right' }}>
               <img src={trashCan} width="15px"  alt="trash"/>
           </span></div>
-          <p className="elegant_grey">{ item.content }</p>
+          <pre className="elegant_grey">{ item.content }</pre>
           <Embedly url={ item.url } apiKey={config.embedlyKey}/>
         </li>
       );
