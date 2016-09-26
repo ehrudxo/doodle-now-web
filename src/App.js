@@ -43,14 +43,16 @@ class App extends Component {
       var val = {
         title: this.state.title,
         url :this.state.url,
-        content : this.state.content
+        content : this.state.content,
+        createdAt : new Date().getTime()
       }
 
       this.firebaseRef.push(val);
       this.setState({
         title: undefined,
         url : undefined,
-        content : undefined
+        content : undefined,
+        createdAt :undefined
       });
     }else{
       alert("값을 확인해 주세요")
