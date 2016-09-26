@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-h3{display:inline-block;}
+h3{display:inline-block;margin:2px;}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -41,10 +41,10 @@ ul{
   margin-right: auto;
 }
 .row_edit{
-  padding :5px;
+  padding :2px;
   padding-left: 3.5%;
   text-align: left;
-  vertical-align: top;
+  margin: 0px;
 }
 .row_title{
   width :20%;
@@ -52,8 +52,10 @@ ul{
 }
 .row_input{
   width:70%;
-
 }
 textarea {
-  height: 100px;
+  height: 50px;
+}
+input {
+  height:20px;
 }
