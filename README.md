@@ -1,4 +1,4 @@
-# Doodle now 웹 버전
+# Doodle now 웹 버전(정확히는 데스크탑 버전)
 
 Mac  버전 : https://github.com/ehrudxo/doodle-now-web/blob/master/doodle-now-web-darwin-x64.zip
 
