@@ -22,7 +22,7 @@ class App extends Component {
     this.removeItem = this.removeItem.bind(this);
   }
   componentWillMount() {
-    this.firebaseRef.orderByKey().limitToLast(25).on('value', (dataSnapshot)=> {
+    this.firebaseRef.orderByKey().limitToLast(10).on('value', (dataSnapshot)=> {
       var items = [];
       dataSnapshot.forEach(function(childSnapshot) {
         var item = childSnapshot.val();
@@ -71,7 +71,9 @@ class App extends Component {
     this.setState(stateObj);
   }
   removeItem(key) {
-    console.log("web 버전은 삭제를 지원하지 않습니다. 데스크 탑 버전을 이용해 주세요.");
+    let verMessage = "web 버전은 삭제를 지원하지 않습니다. 데스크 탑 버전을 이용해 주세요.";
+    console.log( verMessage );
+    alert( verMessage );
     // var firebaseRef = firebase.database().ref('doodles');;
     // firebaseRef.child(key).remove();
   }
