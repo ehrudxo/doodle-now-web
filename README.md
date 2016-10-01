@@ -1,8 +1,10 @@
 # Doodle now 웹 버전(정확히는 데스크탑 버전)
 
-Mac  버전 : https://github.com/ehrudxo/doodle-now-web/blob/master/doodle-now-web-darwin-x64.zip
+Mac Desktop Program Download: https://github.com/ehrudxo/doodle-now-web/blob/master/doodle-now-web-darwin-x64.zip
 
-Window  버전 : https://github.com/ehrudxo/doodle-now-web/blob/master/doodle-now-web-win32-x64.zip
+Window  Desktop Program Download: https://github.com/ehrudxo/doodle-now-web/blob/master/doodle-now-web-win32-x64.zip
+
+web : https://ehrudxo.github.io/doodle-now-web/doodle/
 
 삭제 버튼은 실제 삭제 됩니다.
 
