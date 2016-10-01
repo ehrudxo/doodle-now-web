@@ -71,8 +71,9 @@ class App extends Component {
     this.setState(stateObj);
   }
   removeItem(key) {
-    var firebaseRef = firebase.database().ref('doodles');;
-    firebaseRef.child(key).remove();
+    console.log("web 버전은 삭제를 지원하지 않습니다. 데스크 탑 버전을 이용해 주세요.");
+    // var firebaseRef = firebase.database().ref('doodles');;
+    // firebaseRef.child(key).remove();
   }
   render() {
     return (
