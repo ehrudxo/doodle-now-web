@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import logo from './img/main_logo.png';
-import newPng from './img/new.png';
-import './App.css';
+import '../css/App.css';
 import firebase from 'firebase';
 import config from './config';
 import moment from 'moment';
 import request from 'superagent';
-import trashCan from './img/trash-can.png'
+
+let logoSrc = './static/img/main_logo.png';
+let newPngSrc = './static/img/new.png';
+let trashCanSrc = './static/img/trash-can.png';
 
 firebase.initializeApp(config);
 //https://doodle-now.firebaseio.com/doodles/.json
@@ -81,7 +82,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <div className="logo"><img src={logo} height="150px" alt="logo" /></div>
+          <div className="logo"><img src={logoSrc} height="150px" alt="logo" /></div>
           <h2>Doodle Now</h2>
         </div>
         <p/>
@@ -120,7 +121,7 @@ class DoodleList extends Component{
   getimage(createdTime){
     var diffTime = Math.floor(moment().diff(moment(createdTime))/86400000*24);
     if(diffTime<60){
-      return(<img src={newPng} alt="new" height="20px"/>)
+      return(<img src={newPngSrc} alt="new" height="20px"/>)
     }else{
       return null;
     }
@@ -133,7 +134,7 @@ class DoodleList extends Component{
           <h3>{ item.title }({moment(item.createdAt).fromNow() })</h3>
           <span onClick={ this.props.removeItem.bind(null, item['.key']) }
                   style={{ color: 'red', marginRight: '10px', cursor: 'pointer',float:'right' }}>
-              <img src={trashCan} width="15px"  alt="trash"/>
+              <img src={trashCanSrc} width="15px"  alt="trash"/>
           </span></div>
           <pre className="elegant_grey">{ item.content }</pre>
           <Embedly url={ item.url } apiKey={config.embedlyKey}/>
