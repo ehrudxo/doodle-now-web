@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #e9ebee;
 }
 h3{display:inline;margin:2px;}
 .App-logo {
@@ -27,10 +28,12 @@ ul{
   padding:10px;
 }
 .itemList{
-  border-bottom: 1px solid brown;
+  margin-top: 3px;
   padding-top:  10px;
   padding-bottom: 5px;
   text-align: left;
+  background-color: white;
+  border:1px solid rgba(79, 73, 75, 0.28)
 }
 .logo{
   border-radius: 75px;
@@ -68,4 +71,7 @@ pre {
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.cmMargin{
+  margin-left: 15px;
 }

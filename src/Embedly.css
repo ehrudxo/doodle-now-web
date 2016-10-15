@@ -1,0 +1,56 @@
+.embedly{
+  color: #222;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid rgba(79, 73, 75, 0.28);
+  display: block;
+  overflow: hidden;
+  margin: 12px 12px 12px 12px;
+  min-height: 153px;
+}
+.embedly__image{
+  overflow: hidden;
+  left: 0;
+  top: 0;
+}
+.embedly__image_small{
+  width: 153;
+  height: 153;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+}
+.embedly__img{
+  height: 100%;
+  width: auto;
+  transform: translateX(-50%);
+  position: relative;
+  left: 50%
+}
+.embedly__text{
+  margin-left: 5px;
+  min-height: 80px;
+  padding: 5px;
+  box-sizing: border-box
+}
+.embedly__text_small{
+  margin-left: 158px;
+  min-height: 80px;
+  padding: 5px;
+  box-sizing: border-box
+}
+.embedly__title{
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold
+}
+.embedly__descStyle{
+  margin: 5px 0 0;
+  font-size: 11px
+}
+.embedly__provider = {
+  margin: 5px 0 0;
+  font-size: 11px
+}

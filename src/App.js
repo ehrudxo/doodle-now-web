@@ -126,13 +126,13 @@ class DoodleList extends Component{
     if(item&&item.url&&(item.url!=="")&&item.title)
       return (
         <li key={ index } className="itemList">
-          <div>{this.getimage(item.createdAt)}
+          <div className="cmMargin">{this.getimage(item.createdAt)}
           <h3>{ item.title }({moment(item.createdAt).fromNow() })</h3>
           <span onClick={ this.props.removeItem.bind(null, item['.key']) }
-                  style={{ color: 'red', marginRight: '10px', cursor: 'pointer',float:'right' }}>
+                  style={{ color: 'red', marginRight: '15px', cursor: 'pointer',float:'right' }}>
               <img src={trashCan} width="15px"  alt="trash"/>
           </span></div>
-          <pre className="elegant_grey">{ item.content }</pre>
+          <pre className="elegant_grey cmMargin">{ item.content }</pre>
           <Embedly url={ item.url } apiKey={config.embedlyKey}/>
         </li>
       );

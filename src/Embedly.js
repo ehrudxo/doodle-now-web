@@ -2,6 +2,7 @@
 //
 import React, { Component } from 'react';
 import request from 'superagent';
+import embedlycss from './Embedly.css'
 
 class Embedly extends Component {
   constructor(props) {
@@ -47,58 +48,40 @@ class Embedly extends Component {
     }
   }
   render() {
-    let aStyle = {
-      color: "#222",
-      textDecoration: "none",
-      position: "relative",
-      border: "solid 1px #E1E8ED",
-      display: "block",
-      borderRadius: "5px",
-      overflow: "hidden"
-    };
-    let imageStyle = {
-      width: "80px",
-      height: "80px",
-      overflow: "hidden",
-      position: "absolute",
-      left: 0,
-      top: 0
-    };
-    let imgStyle = {
-      height: "100%",
-      width: "auto",
-      transform: "translateX(-50%)",
-      position: "relative",
-      left: "50%"
-    };
-    let textStyle = {
-      marginLeft: "85px",
-      minHeight: "80px",
-      padding: "5px",
-      boxSizing: "border-box"
-    };
-    let titleStyle = {
-      margin: 0,
-      fontSize: "15px",
-      fontWeight: "bold"
-    };
-    let descStyle = {
-      margin: "5px 0 0",
-      fontSize: "11px"
-    };
-    let providerStyle = {
-      margin: "5px 0 0",
-      fontSize: "11px"
-    };
+    // oEmbed 값에 따른 이미지 처리. 캬캬캬.
+    let tw = this.state.thumbnail_width;
+    let iw = window.innerWidth-63;
+    let fixHeight = 300;
+    let fixWidth  = 300;
+    let isMini = false;
+    let classTextName = "embedly__text";
+    let classImageName = "embedly__image";
+    let desc = this.state.description;
+    if(tw<600){
+      isMini=true;
+      fixHeight = 153;
+      fixWidth = 153;
+      classTextName = "embedly__text_small";
+      classImageName = "embedly__image_small";
+      let suffix="";
+      if(desc.length>85) suffix="..(중략)"
+      desc = desc.substring(0,85)+suffix;
+    }else{
+      fixWidth = iw;
+      let imgRatio = tw/iw;
+      fixHeight = this.state.thumbnail_width/imgRatio;
+    }
     return(
-      <a className="embedly" href={this.state.url} style={aStyle}>
-        <div className="embedly__image" style={imageStyle}>
-          <img src={this.state.thumbnail_url} alt={this.state.title} style={imgStyle}/>
+      <a className="embedly" href={this.state.url}>
+        <div className={classImageName} >
+          <img src={this.state.thumbnail_url} alt={this.state.title} className="embedly__img" style={{width:fixWidth,height:fixHeight}}/>
         </div>
-        <div className="embedly__text" style={textStyle}>
-          <p className="embedly__title" style={titleStyle}>{this.state.title}</p>
-          <p className="embedly__desc" style={descStyle}>{this.state.description}</p>
-          <p className="embedly__provider" style={providerStyle}>{this.state.provider_url}</p>
+        <div>
+        <div className={classTextName}>
+          <p className="embedly__title">{this.state.title}</p>
+          <p className="embedly__desc">{desc}</p>
+          <p className="embedly__provider">{this.state.provider_url}</p>
+        </div>
         </div>
       </a>
     )
