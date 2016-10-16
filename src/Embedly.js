@@ -104,7 +104,7 @@ function calculateClass(options){
   *                         클 경우 윈도우 넓이에 맞춘 카드
   * url이 없을 경우 이미지가 없는 카드
   */
-  if(tw<600){
+  if(tw<500){
     fixHeight = 153;
     fixWidth = 153;
     classTextName = "embedly__text_small";
@@ -112,6 +112,10 @@ function calculateClass(options){
     let suffix="";
     if(desc.length>85) suffix="..(중략)"
     desc = desc.substring(0,85)+suffix;
+  }else if(tw>640){
+    fixHeight = 640;
+    let imgRatio = tw/iw;
+    fixWidth = tw/imgRatio;
   }else{
     fixWidth = iw;
     let imgRatio = tw/iw;
