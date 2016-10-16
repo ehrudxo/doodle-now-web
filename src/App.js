@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import logo from './img/main_logo.png';
-import newPng from './img/new.png';
 import './App.css';
 import firebase from 'firebase';
 import config from './config';
 import moment from 'moment';
-import trashCan from './img/trash-can.png'
 import Embedly from './Embedly'
-
+console.log(process.env);
 firebase.initializeApp(config);
 //https://doodle-now.firebaseio.com/doodles/.json
 class App extends Component {
@@ -110,7 +107,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <div className="logo"><img src={logo} height="60px" alt="logo" /></div>
+          <div className="logo"><img src={process.env.PUBLIC_URL+"/img/main_logo.png"}height="60px" alt="logo" /></div>
           <h3>Doodle Now</h3>
         </div>
         <div className="wrapEditor">
@@ -151,7 +148,7 @@ class DoodleList extends Component{
   getimage(createdTime){
     var diffTime = Math.floor(moment().diff(moment(createdTime))/86400000*24);
     if(diffTime<60){
-      return(<img src={newPng} alt="new" height="20px"/>)
+      return(<img src={process.env.PUBLIC_URL+"/img/new.png"} alt="new" height="20px"/>)
     }else{
       return null;
     }
@@ -170,7 +167,7 @@ class DoodleList extends Component{
           <h3>{ item.title }({moment(item.createdAt).fromNow() })</h3>
           <span onClick={ this.props.removeItem.bind(null, item['.key']) }
                   style={{ color: 'red', marginRight: '15px', cursor: 'pointer',float:'right' }}>
-              <img src={trashCan} width="15px"  alt="trash"/>
+              <img src={process.env.PUBLIC_URL+"/img/trash-can.png"} width="15px"  alt="trash"/>
           </span></div>
           <pre className="elegant_grey cmMargin">{ item.content }</pre>
           {GetEmbedly(item.url, config.embedlyKey)}
