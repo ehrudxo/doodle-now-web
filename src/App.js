@@ -88,7 +88,6 @@ class App extends Component {
         content : content,
         createdAt : new Date().getTime()
       }
-      console.log(val);
       this.firebaseRef.push(val);
       this.setState({
         textEmbedlyUrl : undefined,
