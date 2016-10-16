@@ -2,6 +2,7 @@
   "name": "doodle-now-web",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://ehrudxo.github.io/doodle-now-web",
   "devDependencies": {
     "gh-pages": "^0.11.0",
     "react-scripts": "0.6.1"
