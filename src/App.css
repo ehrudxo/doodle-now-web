@@ -5,13 +5,13 @@
 h3{display:inline;margin:2px;}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 60px;
 }
 
 .App-header {
   background-color: #35353b;
-  height: 150px;
-  padding: 20px;
+  height: 80px;
+  padding: 15px;
   color: white;
 }
 
@@ -33,13 +33,13 @@ ul{
   padding-bottom: 5px;
   text-align: left;
   background-color: white;
-  border:1px solid rgba(79, 73, 75, 0.28)
+  border:1px solid #dddfe2;
 }
 .logo{
-  border-radius: 75px;
+  border-radius: 30px;
   border: 1px solid;
-  width: 150px;
-  height: 150px;
+  width: 60px;
+  height: 60px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -74,4 +74,45 @@ pre {
 }
 .cmMargin{
   margin-left: 15px;
+}
+.wrapEditor{
+  padding : 0px;
+  border: 1px solid #dddfe2;
+  margin: 10px;
+  border-radius: 0 0 3px 3px;
+  background-color: #f6f7f9;
+}
+
+.textEditor{
+  width:100%;
+  min-height: 200px;
+  background-color: white;
+  border-bottom: 1px solid #dddfe2;
+}
+.textEditor .innerEdit{
+  text-align: left;
+  color: #1d2129;
+  padding:20px;
+  min-height: 150px;
+}
+/*placeholder*/
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+div[contenteditable=true] {
+  padding: 5px;
+}
+.actionBar{
+  min-height: 40px;
+}
+.upload{
+  width:100px;
+  height: 30px;
+  margin: 5px;
+  float:right;
+  color: white;
+  background-color: #35353b;
+  border-radius: 3px 3px 3px 3px;
+  border: 0px;
 }

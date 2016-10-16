@@ -22,6 +22,9 @@
   top: 0;
 
 }
+.embedly__text_noneImage{
+  display: none;
+}
 .embedly__img{
   height: 100%;
   width: auto;
@@ -37,6 +40,12 @@
 }
 .embedly__text_small{
   margin-left: 158px;
+  min-height: 80px;
+  padding: 5px;
+  box-sizing: border-box
+}
+.embedly__text_noneImage{
+  margin-left: 5px;
   min-height: 80px;
   padding: 5px;
   box-sizing: border-box

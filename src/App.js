@@ -15,11 +15,14 @@ class App extends Component {
     super(props);
     this.state = {
       doodles: [],
+      textEmbedlyUrl:undefined
     };
     this.firebaseRef = firebase.database().ref("doodles");
-    this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.onPaste = this.onPaste.bind(this);
+    this.editorChange  = this.editorChange.bind(this);
+    this.detectURL = this.detectURL.bind(this);
   }
   componentWillMount() {
     this.firebaseRef.orderByKey().limitToLast(25).on('value', (dataSnapshot)=> {
@@ -36,39 +39,69 @@ class App extends Component {
       }
     });
   }
+  //URL체크
+  onPaste(event){
+    event.clipboardData.items[0].getAsString(text=>{
+      if(this.detectURL(text)){
+        this.setState({textEmbedlyUrl:text});
+      }
+    })
+  }
+  //에디터 만들기 체크
+  editorChange(event){
+    let checkText = this.detectURL(event.currentTarget.textContent);
+    if(!this.state.textEmbedlyUrl&&
+        (event.keyCode===32||event.keyCode===13)&&
+        checkText){
+      this.setState({textEmbedlyUrl:checkText,content:this.state.content});
+    }else{
+      this.setState({content:event.currentTarget.textContent});
+    }
+  }
+  detectURL(text){
+    return (text.match(/(https?:\/\/[^\s]+)/g)||text.match(/(www.[^\s]+)/g));
+  }
   handleSubmit(e) {
     e.preventDefault();
-    if(this.state.title && this.state.title!==""&&
-       this.state.url && this.state.url!==""&&
-      this.state.content && this.state.content!==""){
+    if(this.state.content && this.state.content!==""){
+      let content = this.state.content;
+      let newLineAt = content.charAt("\n");
+      let title,textEmbedlyUrl;
+      if(newLineAt>0){
+        title = content;
+        if(content.length<10){
+          title = content;
+        }else{
+          title = content.substring(0,newLineAt);
+        }
+      }else{
+        title = content;
+      }
+      if(!this.state.textEmbedlyUrl){
+        textEmbedlyUrl ="http://www.example.com";
+      }else{
+        textEmbedlyUrl =this.state.textEmbedlyUrl;
+      }
       var val = {
-        title: this.state.title,
-        url :this.state.url,
-        content : this.state.content,
+        title: title,
+        url :textEmbedlyUrl,
+        content : content,
         createdAt : new Date().getTime()
       }
-
+      console.log(val);
       this.firebaseRef.push(val);
       this.setState({
-        title: undefined,
-        url : undefined,
-        content : undefined,
-        createdAt :undefined
+        textEmbedlyUrl : undefined,
+        content : ""
       });
     }else{
       alert("값을 확인해 주세요")
     }
-    document.getElementById("nForm").reset();
+    // document.getElementById("nForm").reset();
     // location.reload();
   }
   componentWillUnmount() {
     this.firebaseRef.off();
-  }
-  onChange(e) {
-    // console.log(e.target.name,e.target.value);
-    var stateObj = {};
-    stateObj[e.target.name]=e.target.value;
-    this.setState(stateObj);
   }
   removeItem(key) {
     var firebaseRef = firebase.database().ref('doodles');;
@@ -78,31 +111,33 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <div className="logo"><img src={logo} height="150px" alt="logo" /></div>
-          <h2>Doodle Now</h2>
+          <div className="logo"><img src={logo} height="60px" alt="logo" /></div>
+          <h3>Doodle Now</h3>
         </div>
-        <p/>
-        <form id="nForm" onSubmit={()=>{return false;}}>
-        <div className="row_edit">
-          <h3 className="row_title">title</h3>
-          <input className="row_input" name="title" type="text"
-                  onChange={ this.onChange }/>
+        <div className="wrapEditor">
+          <div className="textEditor">
+            <div className="innerEdit"
+              contentEditable="true"
+              onPaste={this.onPaste}
+              onKeyUp={this.editorChange} placeholder="글쓰기...">{this.state.content}</div>
+            <GetSingleEmbedly embedlyUrl={this.state.textEmbedlyUrl}/>
+          </div>
+          <div className="actionBar">
+            <button className="upload" onClick={this.handleSubmit}><span>두들 나우!</span></button>
+          </div>
         </div>
-        <div className="row_edit">
-          <h3 className="row_title">url</h3>
-          <input className="row_input" name="url" type="text"
-                  onChange={ this.onChange }/>
-        </div>
-        <div className="row_edit">
-          <h3 className="row_title">content</h3>
-          <textarea className="row_input" name="content"
-                  onChange={ this.onChange }/>
-        </div>
-        <button onClick={ this.handleSubmit }>doodle!</button>
-        </form>
         <DoodleList doodles={ this.state.doodles } removeItem={ this.removeItem }/>
       </div>
     );
+  }
+}
+class GetSingleEmbedly extends Component{
+  render(){
+    if(this.props.embedlyUrl){
+      return(<Embedly url={ this.props.embedlyUrl } apiKey={config.embedlyKey}/>);
+    }else{
+      return(<div/>);
+    }
   }
 }
 class DoodleList extends Component{
@@ -123,6 +158,12 @@ class DoodleList extends Component{
     }
   }
   createItem(item, index) {
+    let isOmit = item.url==="http://www.example.com"?true:false;
+    function GetEmbedly(url, key){
+      if(!isOmit)
+       return (<Embedly url={ url } apiKey={key}/>);
+      else return(<div/>);
+    }
     if(item&&item.url&&(item.url!=="")&&item.title)
       return (
         <li key={ index } className="itemList">
@@ -133,7 +174,7 @@ class DoodleList extends Component{
               <img src={trashCan} width="15px"  alt="trash"/>
           </span></div>
           <pre className="elegant_grey cmMargin">{ item.content }</pre>
-          <Embedly url={ item.url } apiKey={config.embedlyKey}/>
+          {GetEmbedly(item.url, config.embedlyKey)}
         </li>
       );
     else return null;
