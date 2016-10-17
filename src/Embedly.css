@@ -6,7 +6,7 @@
   display: block;
   overflow: hidden;
   margin: 12px 12px 12px 12px;
-  min-height: 153px;
+  min-height: 83px;
 }
 .embedly__image{
   overflow: hidden;
@@ -14,8 +14,8 @@
   top: 0;
 }
 .embedly__image_small{
-  width: 153;
-  height: 153;
+  width: 83;
+  height: 83;
   overflow: hidden;
   position: absolute;
   left: 0;
@@ -39,10 +39,11 @@
   box-sizing: border-box
 }
 .embedly__text_small{
-  margin-left: 158px;
+  margin-left: 88px;
   min-height: 80px;
   padding: 5px;
-  box-sizing: border-box
+  box-sizing: border-box;
+  font-size: 10px;
 }
 .embedly__text_noneImage{
   margin-left: 5px;

@@ -105,21 +105,17 @@ function calculateClass(options){
   * url이 없을 경우 이미지가 없는 카드
   */
   if(tw<500){
-    fixHeight = 153;
-    fixWidth = 153;
+    fixHeight = 83;
+    fixWidth = 83;
     classTextName = "embedly__text_small";
     classImageName = "embedly__image_small";
     let suffix="";
-    if(desc.length>85) suffix="..(중략)"
-    desc = desc.substring(0,85)+suffix;
+    if(desc.length>60) suffix="..(중략)"
+    desc = desc.substring(0,60)+suffix;
   }else if(tw>640){
-    fixHeight = 640;
-    let imgRatio = tw/iw;
-    fixWidth = tw/imgRatio;
-  }else{
-    fixWidth = iw;
-    let imgRatio = tw/iw;
-    fixHeight = tw/imgRatio;
+    fixHeight = 320;
+    let imgRatio = iw/tw;
+    fixWidth = tw*imgRatio;
   }
   if(!hasImage){
     classTextName = "embedly__text_noneImage";

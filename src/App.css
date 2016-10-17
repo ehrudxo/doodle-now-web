@@ -85,7 +85,7 @@ pre {
 
 .textEditor{
   width:100%;
-  min-height: 200px;
+  min-height: 100px;
   background-color: white;
   border-bottom: 1px solid #dddfe2;
 }
@@ -93,7 +93,7 @@ pre {
   text-align: left;
   color: #1d2129;
   padding:20px;
-  min-height: 150px;
+  min-height: 90px;
 }
 /*placeholder*/
 [contenteditable=true]:empty:before{
