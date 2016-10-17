@@ -52,22 +52,24 @@ class Embedly extends Component {
   render() {
     let ocl = calculateClass({
       thumbnail_width : this.state.thumbnail_width,
-      windows_innerWidth : window.innerWidth-63,
+      thumbnail_height : this.state.thumbnail_height,
+      windows_innerWidth : window.innerWidth-47,
       description :this.state.description,
       url : this.state.url
     });
+
     // console.log(ocl, this.state.url);
     if(!ocl.hasImage) return (<div/>);
     else return(
-      <a className="embedly" href={this.state.url}>
+      <a className="embedly" href={this.state.url} target="_blank">
         <div className={ocl.classImageName} >
-          <img src={this.state.thumbnail_url} alt={this.state.title} className="embedly__img" style={{width:ocl.fixWidth,height:ocl.fixHeight}}/>
+          <img src={this.state.thumbnail_url} alt={this.state.title} className={ocl.classImgName} style={{width:ocl.fixWidth,height:ocl.fixHeight}}/>
         </div>
-        <div>
+        <div className="borderTop">
         <div className={ocl.classTextName}>
-          <p className="embedly__title">{this.state.title}</p>
-          <p className="embedly__desc">{ocl.desc}</p>
-          <p className="embedly__provider">{this.state.provider_url}</p>
+          <p className="embedly__title" style={{width:ocl.txtSize}}>{this.state.title}</p>
+          <p className="embedly__desc" style={{width:ocl.txtSize}}>{ocl.desc}</p>
+          <p className="embedly__provider" style={{width:ocl.txtSize}}>{this.state.provider_url}</p>
         </div>
         </div>
       </a>
@@ -85,8 +87,10 @@ class Embedly extends Component {
 function calculateClass(options){
   // oEmbed 값에 따른   Card CSS 처리.
   let tw = options.thumbnail_width;
+  let th = options.thumbnail_height;
   let iw = options.windows_innerWidth;
   let desc = options.description;
+  let txtSize=iw;
   let hasImage = (!options.url||options.url==="http://www.example.com")?false:true;
   // console.log(hasImage, options.url);
   /*
@@ -99,6 +103,7 @@ function calculateClass(options){
   */
   let classTextName = "embedly__text";
   let classImageName = "embedly__image";
+  let classImgName = "embedly__img";
   /*
   * thumbnail size가 600 보다 작을 경우 153x153픽셀 카드
   *                         클 경우 윈도우 넓이에 맞춘 카드
@@ -109,13 +114,17 @@ function calculateClass(options){
     fixWidth = 83;
     classTextName = "embedly__text_small";
     classImageName = "embedly__image_small";
-    let suffix="";
-    if(desc.length>60) suffix="..(중략)"
-    desc = desc.substring(0,60)+suffix;
+    classImgName = "embedly__img_small";
+    // let suffix="";
+    // if(desc.length>60) suffix="..(중략)"
+    // desc = desc.substring(0,60)+suffix;
+    txtSize = iw - 100;
   }else if(tw>640){
-    fixHeight = 320;
+    fixWidth = iw;
     let imgRatio = iw/tw;
-    fixWidth = tw*imgRatio;
+    fixHeight = th*imgRatio;
+    if(fixHeight<180)fixHeight=180;
+    txtSize = iw - 25;
   }
   if(!hasImage){
     classTextName = "embedly__text_noneImage";
@@ -127,7 +136,9 @@ function calculateClass(options){
     hasImage : hasImage,
     classTextName : classTextName,
     classImageName : classImageName,
-    desc :desc
+    classImgName :classImgName,
+    desc : desc,
+    txtSize :txtSize
   }
 }
 export default Embedly;

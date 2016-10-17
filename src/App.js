@@ -7,6 +7,7 @@ import Embedly from './Embedly';
 import logo from './img/main_logo.png';
 import newPng from './img/new.png';
 import trashcan from './img/trash-can.png';
+import heart from './img/heart.png';
 
 console.log(process.env);
 firebase.initializeApp(config);
@@ -24,6 +25,7 @@ class App extends Component {
     this.onPaste = this.onPaste.bind(this);
     this.editorChange  = this.editorChange.bind(this);
     this.detectURL = this.detectURL.bind(this);
+    this.likeArticle = this.likeArticle.bind(this);
   }
   componentWillMount() {
     this.firebaseRef.orderByKey().limitToLast(25).on('value', (dataSnapshot)=> {
@@ -107,6 +109,10 @@ class App extends Component {
     var firebaseRef = firebase.database().ref('doodles');;
     firebaseRef.child(key).remove();
   }
+  likeArticle(key){
+    console.log("likedIt :"+ key);
+    alert("준비중입니다. 같이 해보실까요? keen에게 이야기하기!");
+  }
   render() {
     return (
       <div className="App">
@@ -126,7 +132,7 @@ class App extends Component {
             <button className="upload" onClick={this.handleSubmit}><span>두들 나우!</span></button>
           </div>
         </div>
-        <DoodleList doodles={ this.state.doodles } removeItem={ this.removeItem }/>
+        <DoodleList doodles={ this.state.doodles } removeItem={ this.removeItem } likeArticle = { this.likeArticle }/>
       </div>
     );
   }
@@ -168,11 +174,19 @@ class DoodleList extends Component{
       return (
         <li key={ index } className="itemList">
           <div className="cmMargin">{this.getimage(item.createdAt)}
-          <h3>{ item.title }({moment(item.createdAt).fromNow() })</h3>
-          <span onClick={ this.props.removeItem.bind(null, item['.key']) }
+          <h3>{ item.title }</h3>
+          </div>
+          <div className="cmMargin">
+            <span className="greyTxt"> - {moment(item.createdAt).fromNow() }</span>
+            <span onClick={ this.props.removeItem.bind(null, item['.key']) }
                   style={{ color: 'red', marginRight: '15px', cursor: 'pointer',float:'right' }}>
-              <img src={trashcan} width="15px"  alt="trash"/>
-          </span></div>
+                  <img src={trashcan} height="20px"  alt="trash"/>
+            </span>
+            <span onClick={ this.props.likeArticle.bind(null, item['.key']) }
+                  style={{ color: 'red', marginRight: '15px', cursor: 'pointer',float:'right',fontSize:'23px' }}>
+                  ♡
+            </span>
+          </div>
           <pre className="elegant_grey cmMargin">{ item.content }</pre>
           {GetEmbedly(item.url, config.embedlyKey)}
         </li>

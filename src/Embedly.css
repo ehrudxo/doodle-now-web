@@ -7,11 +7,13 @@
   overflow: hidden;
   margin: 12px 12px 12px 12px;
   min-height: 83px;
+  font-size: 10px;
 }
 .embedly__image{
   overflow: hidden;
   left: 0;
   top: 0;
+  max-height: 180px;
 }
 .embedly__image_small{
   width: 83;
@@ -30,7 +32,12 @@
   width: auto;
   transform: translateX(-50%);
   position: relative;
-  left: 50%
+  left: 50%;
+  border-bottom: 1px solid rgba(79, 73, 75, 0.28);
+}
+.embedly__img_small{
+  position: relative;
+  border-right: 1px solid rgba(79, 73, 75, 0.28);
 }
 .embedly__text{
   margin-left: 5px;
@@ -40,10 +47,10 @@
 }
 .embedly__text_small{
   margin-left: 88px;
-  min-height: 80px;
+  height: 83px;
   padding: 5px;
   box-sizing: border-box;
-  font-size: 10px;
+
 }
 .embedly__text_noneImage{
   margin-left: 5px;
@@ -53,14 +60,28 @@
 }
 .embedly__title{
   margin: 0;
-  font-size: 15px;
-  font-weight: bold
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.embedly__descStyle{
+.embedly__desc{
   margin: 5px 0 0;
-  font-size: 11px
+  font-size: 11px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* 여러 줄 자르기 추가 스타일 */
+  white-space: normal;
+  line-height: 1;
+  height: 3em;
 }
-.embedly__provider = {
+.embedly__provider {
   margin: 5px 0 0;
-  font-size: 11px
+  font-size: 10px
+}
+.borderTop{
+  border-top: 1px solid rgba(79, 73, 75, 0.28);
 }
