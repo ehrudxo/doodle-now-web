@@ -4,7 +4,7 @@ Mac Desktop Program Download: https://github.com/ehrudxo/doodle-now-web/blob/mas
 
 Window  Desktop Program Download: https://github.com/ehrudxo/doodle-now-web/blob/master/doodle-now-web-win32-x64.zip
 
-web : https://ehrudxo.github.io/doodle-now-web/doodle/
+web : https://ehrudxo.github.io/doodle-now-web/
 
 삭제 버튼은 실제 삭제 됩니다.
 
